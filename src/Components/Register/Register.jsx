@@ -1,7 +1,37 @@
+import axios from "axios";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
+import { RotatingLines } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+
+
+  const [errMsg,setErrMsg] = useState(null)
+  const [succesMsg, setSuccesMsg] = useState(null)
+  const [isLaoding, setIsLaoding] = useState(false)
+
+  const navigate = useNavigate();
+
+  async function registerNewUser(values)
+  {
+    setIsLaoding(true);
+    try {
+      const {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup",values);
+      setSuccesMsg("Account has been created succesfully");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+
+    } catch (error) {
+      setErrMsg(error.response.data.message);
+    }
+
+    setIsLaoding(false);
+    
+  }
+
   const formikObj = useFormik({
     initialValues: {
       name: "",
@@ -10,13 +40,11 @@ export default function Register() {
       rePassword: "",
       phone: "",
     },
-    onSubmit: function (values) {
-      console.log(values);
-      formikObj.resetForm();
-    },
+    onSubmit: registerNewUser,
 
     validate:function(values)
     {
+      setErrMsg(null);
       const errors={};
       const emailRegex =/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z)(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,32}$/
@@ -55,6 +83,9 @@ export default function Register() {
     <>
       <section className="w-75 m-auto">
         <div className="container">
+          {errMsg?<div className="alert alert-danger">{errMsg}</div>:""}
+          {succesMsg?<div className="alert alert-success">{succesMsg}</div>:""}
+
           <h4>Register Now:</h4>
 
           <form onSubmit={formikObj.handleSubmit}>
@@ -78,7 +109,16 @@ export default function Register() {
             <input onChange={formikObj.handleChange} onBlur={formikObj.handleBlur} value={formikObj.values.phone} id="phone"  className="form-control mb-2" type="tel" />
             {formikObj.errors.phone && formikObj.touched.phone?<div className="alert alert-danger">{formikObj.errors.phone}</div>: " "}
 
-            <button type="submit" disabled={formikObj.isValid == false || formikObj.dirty == false} className="btn btn-primary">Register</button>
+            <button type="submit" disabled={formikObj.isValid == false || formikObj.dirty == false} className="btn btn-primary">
+              {isLaoding?<RotatingLines
+              strokeColor="white"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="50"
+              visible={true}
+            />:"Register"}
+              
+            </button>
             
           </form>
         </div>

@@ -6,6 +6,7 @@ import Brands from './Components/Brands/Brands';
 import Catogries from './Components/Categories/Catogries';
 import Products from './Components/Products/Products';
 import Register from './Components/Register/Register';
+import Login from './Components/Login/Login';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     {path:"Categories",element:<Catogries/> },
     {path:"products",element:<Products/> },
     {path:"Register",element:<Register/> },
+    {path:"login", element: <Login/>}
   ]}])
   
   return <>
