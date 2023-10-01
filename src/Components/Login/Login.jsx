@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import { authContext } from "../../context/authentication";
 
 export default function Login() {
 
+  const {setToken} = useContext(authContext)
 
   const [errMsg,setErrMsg] = useState(null)
   const [succesMsg, setSuccesMsg] = useState(null)
@@ -22,7 +24,8 @@ export default function Login() {
       if (data.message == "success")
       {
         setSuccesMsg("Welcome back");
-
+        localStorage.setItem('token',data.token);
+        setToken(data.token);
         setTimeout(() => {
           navigate("/products");
         }, 1000);

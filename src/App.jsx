@@ -7,6 +7,7 @@ import Catogries from './Components/Categories/Catogries';
 import Products from './Components/Products/Products';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
+import AuthContextProvider from './context/authentication';
 
 
 function App() {
@@ -21,8 +22,10 @@ function App() {
   ]}])
   
   return <>
-
-    <RouterProvider router={routers}/>
+    <AuthContextProvider>
+      <RouterProvider router={routers}/>
+    </AuthContextProvider>
+    
   </>
    
 }
