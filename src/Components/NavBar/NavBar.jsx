@@ -1,9 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/Images/freshcart-logo.svg'
 import './NavBar.css'
+import { authContext } from '../../context/authentication'
 
 export default function NavBar() {
+
+  const {token , setToken} = useContext(authContext);
+  const navFun = useNavigate();
+
+  function logOut()
+  {
+    localStorage.removeItem("token");
+    setToken(null);
+    navFun('/login ')
+  }
+
   return <>
   <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container">
@@ -15,8 +27,8 @@ export default function NavBar() {
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <li className="nav-item">
+        {token? <>
+          <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="/">Home</Link>
         </li>
 
@@ -31,7 +43,10 @@ export default function NavBar() {
         <li className="nav-item">
           <Link className="nav-link" to="/products">Products</Link>
         </li>
-        </ul>
+        </>:""}
+
+
+      </ul>
 
         <ul className='navbar-nav ms-auto mb-2 mb-lg-0 align-items-center'>
 
@@ -44,6 +59,11 @@ export default function NavBar() {
             <i className='me-2 fa-brands fa-linkedin'></i>
             <i className='me-2 fa-brands fa-youtube'></i>
           </li>
+
+          
+          {token?<li className="nav-item">
+            <span onClick={logOut} className="cursor nav-link">Logout</span>
+          </li>:<>
           <li className="nav-item">
             <Link className="nav-link" to="/Register">Register</Link>
           </li>
@@ -51,10 +71,13 @@ export default function NavBar() {
           <li className="nav-item">
             <Link className="nav-link" to="/Login">Login</Link>
           </li>
+          </>
+          }
+
+
           
-          <li className="nav-item">
-            <span className="cursor nav-link" to="/Login">Logout</span>
-          </li>
+
+
 
         </ul>
     </div>
