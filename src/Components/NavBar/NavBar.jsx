@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/Images/freshcart-logo.svg'
+import './NavBar.css'
 
 export default function NavBar() {
   return <>
@@ -30,14 +31,31 @@ export default function NavBar() {
         <li className="nav-item">
           <Link className="nav-link" to="/products">Products</Link>
         </li>
+        </ul>
 
-        <li className="nav-item">
-          <Link className="nav-link" to="/Register">Register</Link>
-        </li>
+        <ul className='navbar-nav ms-auto mb-2 mb-lg-0 align-items-center'>
 
-        <li className="nav-item">
-          <Link className="nav-link" to="/Login">Login</Link>
-        </li>
+          
+          <li>
+            <i className='me-2 fa-brands fa-instagram'></i>
+            <i className='me-2 fa-brands fa-facebook'></i>
+            <i className='me-2 fa-brands fa-tiktok'></i>
+            <i className='me-2 fa-brands fa-twitter'></i>
+            <i className='me-2 fa-brands fa-linkedin'></i>
+            <i className='me-2 fa-brands fa-youtube'></i>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/Register">Register</Link>
+          </li>
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/Login">Login</Link>
+          </li>
+          
+          <li className="nav-item">
+            <span className="cursor nav-link" to="/Login">Logout</span>
+          </li>
+
         </ul>
     </div>
   </div>
