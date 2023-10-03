@@ -8,7 +8,9 @@ export default function ProtectedRoute({children}) {
 
     if (token==null)
     {
+      setTimeout(() => {
         return <Navigate to={"/Login"}/>
+      }, 50);
     }
 
   return (
