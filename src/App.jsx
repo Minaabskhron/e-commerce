@@ -1,7 +1,6 @@
-import { RouterProvider, createHashRouter,createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import './App.css';
 import Layout from './Components/Layout/Layout';
-import Home from './Components/Home/Home';
 import Brands from './Components/Brands/Brands';
 import Catogries from './Components/Categories/Catogries';
 import Products from './Components/Products/Products';
@@ -10,13 +9,17 @@ import Login from './Components/Login/Login';
 import AuthContextProvider from './context/authentication';
 import NotFound from './Components/NotFound/NotFound';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ProductDetails from './Components/ProductsDetails/ProductDetails';
+
 
 
 function App() {
-  let routers = createHashRouter([{
+
+  const routers = createHashRouter([{
     path:"",element:<Layout/>,children:[
     {index:true,element:<ProtectedRoute>
-      <Home/> 
+      <Products/> 
     </ProtectedRoute>
      },
 
@@ -33,16 +36,29 @@ function App() {
     <Products/> 
     </ProtectedRoute>},
 
+    {path:"ProductDetails/:id",element:<ProtectedRoute>
+      <ProductDetails/> 
+    </ProtectedRoute>},
+
+
     {path:"Register",element:<Register/> },
     {path:"login", element: <Login/>},
     {path:"*", element: <NotFound/>}
   ]}])
   
+
+  const clientQuery = new QueryClient();
+
   return <>
-    <AuthContextProvider>
-      <RouterProvider router={routers}/>
-    </AuthContextProvider>
-    
+
+    <QueryClientProvider  client={clientQuery}>
+
+      <AuthContextProvider>
+        <RouterProvider router={routers}/>
+      </AuthContextProvider>
+      
+    </QueryClientProvider>
+
   </>
    
 }
