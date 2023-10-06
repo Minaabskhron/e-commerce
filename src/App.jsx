@@ -11,6 +11,9 @@ import NotFound from './Components/NotFound/NotFound';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ProductDetails from './Components/ProductsDetails/ProductDetails';
+import CartContextProvider from './context/cartContext';
+import { Toaster } from 'react-hot-toast';
+import Cart from './Components/Cart/Cart';
 
 
 
@@ -36,6 +39,11 @@ function App() {
     <Products/> 
     </ProtectedRoute>},
 
+    
+    {path:"cart",element:<ProtectedRoute>
+    <Cart/> 
+    </ProtectedRoute>},
+
     {path:"ProductDetails/:id",element:<ProtectedRoute>
       <ProductDetails/> 
     </ProtectedRoute>},
@@ -53,9 +61,13 @@ function App() {
 
     <QueryClientProvider  client={clientQuery}>
 
-      <AuthContextProvider>
-        <RouterProvider router={routers}/>
-      </AuthContextProvider>
+      <CartContextProvider>
+        <AuthContextProvider>
+          <RouterProvider router={routers}/>
+        </AuthContextProvider>
+      </CartContextProvider>
+
+      <Toaster/>
       
     </QueryClientProvider>
 

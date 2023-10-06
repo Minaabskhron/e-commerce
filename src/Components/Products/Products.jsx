@@ -1,14 +1,34 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Products.css'
 import Loading from '../Loading/Loading';
 import { useQuery } from 'react-query';
 import HomeSlider from '../HomeSlider/HomeSlider';
 import CategorySlider from '../CategorySlider/CategorySlider';
 import { Link } from 'react-router-dom'
+import { cartContext } from '../../context/cartContext';
+import toast from 'react-hot-toast';
 
 
 export default function Products() {
+
+  const {addProductToCart} = useContext(cartContext)
+
+  const [isLoading1, setIsLoading1] = useState(false)
+
+  async function addProduct(productId)
+  {
+    setIsLoading1(true)
+    const result = await addProductToCart(productId);
+    setIsLoading1(false);
+    if (result.status === "success")
+    {
+      toast.success(result.message,{
+        duration:2000,
+      })
+    }
+    
+  }
 
   function getProducts()
   {
@@ -55,7 +75,7 @@ export default function Products() {
               </div>
               
             </Link> 
-            <button className='btn mainBgColor w-100 btn-light text-white'>add to cart</button>
+            <button onClick={()=>{addProduct(product.id)}} className='btn mainBgColor w-100 btn-light text-white'>+ add to cart</button>
           </div>
         </div>)}
 

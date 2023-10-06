@@ -11,13 +11,13 @@ export default function Login() {
 
   const [errMsg,setErrMsg] = useState(null)
   const [succesMsg, setSuccesMsg] = useState(null)
-  const [isLaoding, setIsLaoding] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate();
 
   async function loginToAccount(values)
   {
-    setIsLaoding(true);
+    setIsLoading(true);
     try {
       const {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",values);
 
@@ -37,7 +37,7 @@ export default function Login() {
       setErrMsg(error.response.data.message);
     }
 
-    setIsLaoding(false);
+    setIsLoading(false);
     
   }
 
@@ -89,7 +89,7 @@ export default function Login() {
             {formikObj.errors.password && formikObj.touched.password?<div className="alert alert-danger">{formikObj.errors.password}</div>: " "}
 
             <button type="submit" disabled={formikObj.isValid == false || formikObj.dirty == false} className="btn btn-primary">
-              {isLaoding?<RotatingLines
+              {isLoading?<RotatingLines
               strokeColor="white"
               strokeWidth="5"
               animationDuration="0.75"
