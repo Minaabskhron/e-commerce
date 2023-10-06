@@ -12,15 +12,11 @@ import toast from 'react-hot-toast';
 
 export default function Products() {
 
-  const {addProductToCart} = useContext(cartContext)
-
-  const [isLoading1, setIsLoading1] = useState(false)
+  const {addProductToCart} = useContext(cartContext);
 
   async function addProduct(productId)
   {
-    setIsLoading1(true)
     const result = await addProductToCart(productId);
-    setIsLoading1(false);
     if (result.status === "success")
     {
       toast.success(result.message,{

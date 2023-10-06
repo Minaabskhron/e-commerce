@@ -3,17 +3,20 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/Images/freshcart-logo.svg'
 import './NavBar.css'
 import { authContext } from '../../context/authentication'
+import { cartContext } from '../../context/cartContext'
+
 
 export default function NavBar() {
 
   const {token , setToken} = useContext(authContext);
   const navFun = useNavigate();
+  const {numOfCartItems} = useContext(cartContext)
 
   function logOut()
   {
     localStorage.removeItem("token");
     setToken(null);
-    navFun('/login ')
+    navFun('/login ');
   }
 
   return <>
@@ -63,6 +66,15 @@ export default function NavBar() {
             <i className='me-2 fa-brands fa-twitter'></i>
             <i className='me-2 fa-brands fa-linkedin'></i>
             <i className='me-2 fa-brands fa-youtube'></i>
+            {token?<Link to={'/cart'}>
+            <i className="fa-solid fa-cart-shopping position-relative">
+              {numOfCartItems==0?"":<span className="position-absolute top-0 start-100 translate-middle badge rounded-3 mainBgColor">
+                  {numOfCartItems}
+              </span>}
+
+            </i>
+            </Link>:""}  
+
           </li>
 
           
