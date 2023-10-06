@@ -9,13 +9,13 @@ export default function Register() {
 
   const [errMsg,setErrMsg] = useState(null)
   const [succesMsg, setSuccesMsg] = useState(null)
-  const [isLaoding, setIsLaoding] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate();
 
   async function registerNewUser(values)
   {
-    setIsLaoding(true);
+    setIsLoading(true);
     try {
       const {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup",values);
       setSuccesMsg("Account has been created succesfully");
@@ -28,7 +28,7 @@ export default function Register() {
       setErrMsg(error.response.data.message);
     }
 
-    setIsLaoding(false);
+    setIsLoading(false);
     
   }
 
@@ -110,7 +110,7 @@ export default function Register() {
             {formikObj.errors.phone && formikObj.touched.phone?<div className="alert alert-danger">{formikObj.errors.phone}</div>: " "}
 
             <button type="submit" disabled={formikObj.isValid == false || formikObj.dirty == false} className="btn btn-primary">
-              {isLaoding?<RotatingLines
+              {isLoading?<RotatingLines
               strokeColor="white"
               strokeWidth="5"
               animationDuration="0.75"

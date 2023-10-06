@@ -25,7 +25,8 @@ export default function CategorySlider() {
         speed: 500,
         slidesToShow: 8,
         slidesToScroll: 2,
-        arrows:false
+        arrows:false,
+        autoplay:true
       };
 
   return <>

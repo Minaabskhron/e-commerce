@@ -6,7 +6,6 @@ import { useQuery } from 'react-query';
 import HomeSlider from '../HomeSlider/HomeSlider';
 import CategorySlider from '../CategorySlider/CategorySlider';
 import { Link } from 'react-router-dom'
-import ProductDetails from '../ProductsDetails/ProductDetails';
 
 
 export default function Products() {
@@ -43,9 +42,9 @@ export default function Products() {
         {data?.data.data.map((product , index)=><div key={index} 
         
         className="col-md-2">
-
-          <Link className='text-decoration-none' to={`/productDetails/${product.id}`}>
-            <div className='products'>
+          <div className='products'>  
+            <Link className='text-decoration-none' to={`/productDetails/${product.id}`}>
+            
               <img src={product.imageCover} className='w-100 pb-2' alt="product" />  
               <h6 className='mainColor'>{product.category.name}</h6>
               <h6>{product.title.split(" ").slice(0,2).join(" ")}</h6>
@@ -54,10 +53,10 @@ export default function Products() {
                 <p><i className="iconColor fa-solid fa-star"></i>{product.ratingsAverage}</p>
                 
               </div>
-              <p>{product.id}</p>
-            </div>  
-          </Link> 
-
+              
+            </Link> 
+            <button className='btn mainBgColor w-100 btn-light text-white'>add to cart</button>
+          </div>
         </div>)}
 
     </div>
