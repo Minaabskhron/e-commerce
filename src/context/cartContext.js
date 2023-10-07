@@ -6,9 +6,10 @@ export const cartContext = createContext()
 
 export default function CartContextProvider({children}) {
 
-    const [cartProducts, setcartProducts] = useState(null);
+    const [cartProducts, setcartProducts] = useState([]);
     const [totalCartPrice, setTotalCartPrice] = useState(0);
     const [numOfCartItems, setNumOfCartItems] = useState(0);
+    const [cartId, setCartId] = useState(null)
 
 
 
@@ -24,9 +25,7 @@ export default function CartContextProvider({children}) {
             })
             if (data.status === 'success')
             {
-                setTotalCartPrice(data.data.totalCartPrice);
-                setNumOfCartItems(data.numOfCartItems);
-                setcartProducts(data.data.products);    
+                getProducts()
             }
 
             return data;
@@ -47,6 +46,7 @@ export default function CartContextProvider({children}) {
                 setcartProducts(data.data.products);
                 setTotalCartPrice(data.data.totalCartPrice);
                 setNumOfCartItems(data.numOfCartItems);
+                setCartId(data.data._id);
                 return data;
             }
             
@@ -69,7 +69,7 @@ export default function CartContextProvider({children}) {
         if (data.status === "success")
         {
             setcartProducts(data.data.products);
-            setTotalCartPrice(data.totalCartPrice);
+            setTotalCartPrice(data.data.totalCartPrice);
             setNumOfCartItems(data.numOfCartItems);
             return data;
         }
@@ -89,6 +89,7 @@ export default function CartContextProvider({children}) {
         {
             headers:{'token':localStorage.getItem('token')}
         })
+
         if (data.status=="success")
         {
             setNumOfCartItems(data.numOfCartItems);
@@ -102,8 +103,30 @@ export default function CartContextProvider({children}) {
         }
     }
 
+    async function removeCartData()
+    {
+      try {
+       const {data} =  await axios.delete(`https://ecommerce.routemisr.com/api/v1/cart`,{
+          headers:{'token':localStorage.getItem('token')}
+        })
+        if (data.message === "success")
+        {
+            
+            setTotalCartPrice(0);
+            setNumOfCartItems(0);
+            setcartProducts([]);
+        }
+        
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    
+
   return <cartContext.Provider value={{addProductToCart, cartProducts,numOfCartItems,totalCartPrice,
-  getProducts,deleteProduct,updateCount}}>
+  getProducts,deleteProduct,updateCount,removeCartData,cartId}}>
     {children}
   </cartContext.Provider>
   

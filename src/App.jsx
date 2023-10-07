@@ -14,6 +14,8 @@ import ProductDetails from './Components/ProductsDetails/ProductDetails';
 import CartContextProvider from './context/cartContext';
 import { Toaster } from 'react-hot-toast';
 import Cart from './Components/Cart/Cart';
+import Profile from './Components/Cart/Profi;e/Profile';
+import Payment from './Components/Payment/Payment';
 
 
 
@@ -42,6 +44,14 @@ function App() {
     
     {path:"cart",element:<ProtectedRoute>
     <Cart/> 
+    </ProtectedRoute>},
+
+    {path:"profile",element:<ProtectedRoute>
+    <Profile/> 
+    </ProtectedRoute>},
+
+    {path:"Payment",element:<ProtectedRoute>
+    <Payment/> 
     </ProtectedRoute>},
 
     {path:"ProductDetails/:id",element:<ProtectedRoute>

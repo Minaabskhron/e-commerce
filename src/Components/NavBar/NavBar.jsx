@@ -47,6 +47,8 @@ export default function NavBar() {
           <Link className="nav-link" to="/products">Products</Link>
         </li>
 
+
+
         <li className="nav-item">
           <Link className="nav-link" to="/cart">Cart</Link>
         </li>
@@ -73,14 +75,24 @@ export default function NavBar() {
               </span>}
 
             </i>
+
             </Link>:""}  
 
           </li>
 
           
-          {token?<li className="nav-item">
+          {token?<>
+          
+          <li className="nav-item">
+            <Link className="nav-link" to="/profile">profile</Link>
+          </li>
+
+          <li className="nav-item">
             <span onClick={logOut} className="cursor nav-link">Logout</span>
-          </li>:<>
+          </li>
+          
+          </>
+          :<>
           <li className="nav-item">
             <Link className="nav-link" to="/Register">Register</Link>
           </li>

@@ -16,6 +16,7 @@ export default function Products() {
 
   async function addProduct(productId)
   {
+    toast.loading('Adding the product',{duration:1500})
     const result = await addProductToCart(productId);
     if (result.status === "success")
     {
@@ -23,7 +24,6 @@ export default function Products() {
         duration:2000,
       })
     }
-    
   }
 
   function getProducts()
