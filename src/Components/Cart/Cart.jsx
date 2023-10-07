@@ -2,10 +2,13 @@ import React, { useContext } from 'react'
 import { cartContext } from '../../context/cartContext'
 import './Cart.css'
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 
 export default function Cart() {
+
+    const nav = useNavigate()
     
     const {cartProducts,totalCartPrice, deleteProduct,updateCount,removeCartData} = useContext(cartContext);
 
@@ -24,7 +27,7 @@ export default function Cart() {
         duration:1500
       })
       await updateCount(productId,count)
-      if (count==0)
+      if (count === 0)
       {
         deleteProduct(productId)
       }
@@ -40,7 +43,6 @@ export default function Cart() {
       await deleteProduct(productId);
       toast.success('item deleted sucessfully');
     }
-
 
     if (cartProducts.length === 0)
     {
