@@ -6,7 +6,7 @@ export const cartContext = createContext()
 
 export default function CartContextProvider({children}) {
 
-    const [cartProducts, setcartProducts] = useState([]);
+    const [cartProducts, setcartProducts] = useState([])
     const [totalCartPrice, setTotalCartPrice] = useState(0);
     const [numOfCartItems, setNumOfCartItems] = useState(0);
     const [cartId, setCartId] = useState(null)
@@ -47,6 +47,7 @@ export default function CartContextProvider({children}) {
                 setTotalCartPrice(data.data.totalCartPrice);
                 setNumOfCartItems(data.numOfCartItems);
                 setCartId(data.data._id);
+                localStorage.setItem("cartId",data.data._id)
                 return data;
             }
             
@@ -56,8 +57,8 @@ export default function CartContextProvider({children}) {
     }
     
     useEffect(() => {
-        getProducts();  
-    
+        if(localStorage.getItem("cartId"))
+            getProducts();
     }, [])
     
     async function deleteProduct(productId)
@@ -115,6 +116,7 @@ export default function CartContextProvider({children}) {
             setTotalCartPrice(0);
             setNumOfCartItems(0);
             setcartProducts([]);
+            localStorage.removeItem('cartId');
         }
         
       } catch (error) {

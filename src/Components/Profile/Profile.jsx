@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 
 export default function Profile() {
 
-    const [name, setName] = useState(null)
+    const [name, setName] = useState(null);
 
     useEffect(() => {
       const personData = jwtDecode(localStorage.getItem('token'))
-
       setName(personData.name)
-    }, [])
+    }, []);
+
 
   return <>
     <div className="container">

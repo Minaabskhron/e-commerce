@@ -53,6 +53,10 @@ export default function NavBar() {
           <Link className="nav-link" to="/cart">Cart</Link>
         </li>
 
+        <li className="nav-item">
+          <Link className="nav-link" to="/allOrders">All orders</Link>
+        </li>
+
         </>:""}
 
 
@@ -84,7 +88,7 @@ export default function NavBar() {
           {token?<>
           
           <li className="nav-item">
-            <Link className="nav-link" to="/profile">profile</Link>
+            <Link className="nav-link" to="/profile">Profile</Link>
           </li>
 
           <li className="nav-item">

@@ -1,11 +1,19 @@
 import { useFormik } from 'formik'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { cartContext } from '../../context/cartContext'
 import axios from 'axios'
 
 export default function Payment() {
 
-    const {cartId} = useContext(cartContext)
+    
+
+    const {cartId,removeCartData} = useContext(cartContext)
+    const [value, setValue] = useState(null)
+
+    function onOptionChange(event)
+    {
+        setValue(event.target.value);
+    }
 
     async function confirmCashPayment(values)
     {
@@ -16,6 +24,10 @@ export default function Payment() {
             },{
                 headers:{'token':localStorage.getItem('token')}
             })
+            if (data.status === "success")
+            {
+                removeCartData();
+            }
 
         } catch (error) {
             console.log(error);
@@ -23,6 +35,7 @@ export default function Payment() {
 
     }
 
+    
     const formikObj = useFormik(
         {
             initialValues:{
@@ -30,7 +43,15 @@ export default function Payment() {
                 city:"",
                 details:""
             },
-            onSubmit:confirmCashPayment,
+            onSubmit:(values)=>{
+                if (value ==='cash')
+                {
+                   confirmCashPayment(values)
+                }
+                
+            }
+            
+            ,
             validate:function(values)
             {
                 const errors={}
@@ -65,7 +86,20 @@ export default function Payment() {
             <label htmlFor="details" className='mt-3'>Details: </label>
             <input type="text" onChange={formikObj.handleChange} value={formikObj.values.details} id="details" className='form-control mt-2' />
 
+            <div>
+                <label  htmlFor="creditCard" className='me-2'>credit card</label>
+                <input type="radio" id='creditCard'  name='paymentType' value='credit' onChange={onOptionChange}  />
+            </div> 
+            <div>
+                <label  htmlFor="cash" className='me-2'>cash</label>
+                <input type="radio" id='cash'  name='paymentType' value='cash' onChange={onOptionChange} />
+            </div> 
+
+
             <button type='submit' disabled={formikObj.isValid == false || formikObj.dirty == false} className='btn btn-danger mt-3'>Confirm details</button>
+            
+
+            
         </form>
     </div>
 
