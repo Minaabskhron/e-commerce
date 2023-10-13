@@ -8,7 +8,6 @@ import Loading from '../Loading/Loading';
 
 export default function Cart() {
 
-    const nav = useNavigate()
     
     const {cartProducts,totalCartPrice, deleteProduct,updateCount,removeCartData} = useContext(cartContext);
 

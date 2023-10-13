@@ -17,6 +17,7 @@ import Cart from './Components/Cart/Cart';
 import Payment from './Components/Payment/Payment';
 import AllOrders from './Components/AllOrder/AllOrders';
 import Profile from './Components/Profile/Profile';
+import PaymentContextProvider from './context/paymentContext';
 
 
 
@@ -77,12 +78,15 @@ function App() {
 
     <QueryClientProvider  client={clientQuery}>
 
-      <CartContextProvider>
-        <AuthContextProvider>
-          <RouterProvider router={routers}/>
-        </AuthContextProvider>
-      </CartContextProvider>
-
+      
+        <CartContextProvider>
+          <PaymentContextProvider>
+            <AuthContextProvider>
+              <RouterProvider router={routers}/>
+            </AuthContextProvider>
+          </PaymentContextProvider>
+        </CartContextProvider>
+      
       <Toaster/>
       
     </QueryClientProvider>

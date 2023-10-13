@@ -2,12 +2,11 @@ import { useFormik } from 'formik'
 import React, { useContext, useState } from 'react'
 import { cartContext } from '../../context/cartContext'
 import axios from 'axios'
+import { paymentContext } from '../../context/paymentContext'
+
 
 export default function Payment() {
-
-    
-
-    const {cartId,removeCartData} = useContext(cartContext)
+    const {confirmCashPayment} = useContext(paymentContext)
     const [value, setValue] = useState(null)
 
     function onOptionChange(event)
@@ -15,25 +14,29 @@ export default function Payment() {
         setValue(event.target.value);
     }
 
-    async function confirmCashPayment(values)
-    {
-        try {
-            
-            const {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/${cartId}`,{
-                'shippingAddress':values
-            },{
-                headers:{'token':localStorage.getItem('token')}
-            })
-            if (data.status === "success")
-            {
-                removeCartData();
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
-
+    async function confirmCashPaymentComp(valuesParam){
+        await confirmCashPayment(valuesParam)
     }
+
+    // async function confirmCashPayment(values)
+    // {
+    //     try {
+            
+    //         const {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/${cartId}`,{
+    //             'shippingAddress':values
+    //         },{
+    //             headers:{'token':localStorage.getItem('token')}
+    //         })
+    //         if (data.status === "success")
+    //         {
+    //             removeCartData();
+    //         }
+
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+
+    // }
 
     
     const formikObj = useFormik(
@@ -46,7 +49,7 @@ export default function Payment() {
             onSubmit:(values)=>{
                 if (value ==='cash')
                 {
-                   confirmCashPayment(values)
+                   confirmCashPaymentComp(values)
                 }
                 
             }
