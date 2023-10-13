@@ -1,12 +1,11 @@
 import { useFormik } from 'formik'
 import React, { useContext, useState } from 'react'
-import { cartContext } from '../../context/cartContext'
-import axios from 'axios'
 import { paymentContext } from '../../context/paymentContext'
+import toast from 'react-hot-toast'
 
 
 export default function Payment() {
-    const {confirmCashPayment} = useContext(paymentContext)
+    const {confirmCashPayment,confirmOnlinePayment} = useContext(paymentContext)
     const [value, setValue] = useState(null)
 
     function onOptionChange(event)
@@ -15,30 +14,22 @@ export default function Payment() {
     }
 
     async function confirmCashPaymentComp(valuesParam){
-        await confirmCashPayment(valuesParam)
+        toast.loading('Confirming the order',{
+            duration:1500
+        })
+        const data = await confirmCashPayment(valuesParam)
+        if (data.status === 'success')
+        {
+            toast.success('Confirmed');
+        }
+        
     }
 
-    // async function confirmCashPayment(values)
-    // {
-    //     try {
-            
-    //         const {data} = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/${cartId}`,{
-    //             'shippingAddress':values
-    //         },{
-    //             headers:{'token':localStorage.getItem('token')}
-    //         })
-    //         if (data.status === "success")
-    //         {
-    //             removeCartData();
-    //         }
+    async function confirmOnlinePaymentComp(valuesParam)
+    {
+        await confirmOnlinePayment(valuesParam)
+    }
 
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-
-    // }
-
-    
     const formikObj = useFormik(
         {
             initialValues:{
@@ -49,7 +40,12 @@ export default function Payment() {
             onSubmit:(values)=>{
                 if (value ==='cash')
                 {
-                   confirmCashPaymentComp(values)
+                    confirmCashPaymentComp(values)
+                }
+
+                else if(value === 'credit')
+                {
+                   confirmOnlinePayment(values)
                 }
                 
             }

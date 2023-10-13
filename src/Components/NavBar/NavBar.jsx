@@ -16,6 +16,9 @@ export default function NavBar() {
   {
     localStorage.removeItem("token");
     setToken(null);
+    localStorage.removeItem('userId');
+    localStorage.removeItem('cartId');
+    localStorage.removeItem('order');
     navFun('/login ');
   }
 
@@ -32,7 +35,7 @@ export default function NavBar() {
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         {token? <>
           <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+          <Link className="nav-link active" aria-current="page" to="/">Products</Link>
         </li>
 
         <li className="nav-item">
@@ -41,16 +44,6 @@ export default function NavBar() {
 
         <li className="nav-item">
           <Link className="nav-link" to="/categories">Categories</Link>
-        </li>
-
-        <li className="nav-item">
-          <Link className="nav-link" to="/products">Products</Link>
-        </li>
-
-
-
-        <li className="nav-item">
-          <Link className="nav-link" to="/cart">Cart</Link>
         </li>
 
         <li className="nav-item">

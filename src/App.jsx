@@ -18,6 +18,8 @@ import Payment from './Components/Payment/Payment';
 import AllOrders from './Components/AllOrder/AllOrders';
 import Profile from './Components/Profile/Profile';
 import PaymentContextProvider from './context/paymentContext';
+import ProfileContextProvider from './context/profileContext';
+import OrderPreview from './Components/OrderPreview/OrderPreview';
 
 
 
@@ -61,14 +63,19 @@ function App() {
       <ProductDetails/> 
     </ProtectedRoute>},
 
-    {path:"allOrders",element:<ProtectedRoute>
+    {path:"allorders",element:<ProtectedRoute>
     <AllOrders/> 
+    </ProtectedRoute>},
+
+    {path:"Orderpreview",element:<ProtectedRoute>
+    <OrderPreview/> 
     </ProtectedRoute>},
 
 
     {path:"Register",element:<Register/> },
     {path:"login", element: <Login/>},
-    {path:"*", element: <NotFound/>}
+
+    {path:"*", element: <NotFound/>},
   ]}])
   
 
@@ -79,6 +86,7 @@ function App() {
     <QueryClientProvider  client={clientQuery}>
 
       
+      <ProfileContextProvider>
         <CartContextProvider>
           <PaymentContextProvider>
             <AuthContextProvider>
@@ -86,6 +94,7 @@ function App() {
             </AuthContextProvider>
           </PaymentContextProvider>
         </CartContextProvider>
+      </ProfileContextProvider>
       
       <Toaster/>
       
