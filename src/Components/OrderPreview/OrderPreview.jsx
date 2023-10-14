@@ -1,8 +1,12 @@
 import React, { useContext } from 'react'
 import { profileContext } from '../../context/profileContext'
+import { cartContext } from '../../context/cartContext';
 
 
 export default function OrderPreview() {
+
+    const {addProductToCart} = useContext(cartContext)
+
     let order = localStorage.getItem('order');
     order = JSON.parse(order);
     console.log(order);
@@ -15,7 +19,7 @@ export default function OrderPreview() {
         {
             order.map((product,index)=>
                 <div key={index}>
-                    <div className="row align-items-center">
+                    <div className="row align-items-center border-bottom border-3">
                         <div className="col-sm-1">
                             <figure>
                                 <img src={product.product.imageCover} className='w-100' alt="" />
@@ -32,6 +36,7 @@ export default function OrderPreview() {
                             <div>
                                 <h6>{product.price} EGP</h6>
                                 <h6 className='text-muted'>Qty: {product.count}</h6>
+                                <button onClick={()=>{addProductToCart(product.product._id)}} className='btn mainBgColor btn-dark'>Buy Again</button>
                             </div>
                         </div>
                     </div>
