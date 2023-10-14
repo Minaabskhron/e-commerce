@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useQuery } from 'react-query';
 import Loading from '../Loading/Loading';
 import { profileContext } from '../../context/profileContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function AllOrders() {
 
@@ -10,6 +10,7 @@ export default function AllOrders() {
 
   const {isLoading} = useQuery('allOrders',getAllOrders)
   
+  const nav = useNavigate();
 
   if (isLoading)
   {
@@ -37,9 +38,9 @@ export default function AllOrders() {
             <td>{order.totalOrderPrice} EGP</td>
             <td>{order.paymentMethodType}</td>
             <td>
-              <Link  to={'/Orderpreview'} onClick={()=>{
-                localStorage.setItem('order',JSON.stringify(order.cartItems))
-              }} className='btn mainBgColor text-white btn-dark'>view</Link>
+              <button onClick={()=>{
+                nav('/Orderpreview',{state:order})
+              }} className='btn mainBgColor text-white btn-dark'>view</button>
             </td>
           </tr>)}
         </tbody>

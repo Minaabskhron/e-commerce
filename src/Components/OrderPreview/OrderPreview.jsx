@@ -2,20 +2,22 @@ import React, { useContext } from 'react'
 import { profileContext } from '../../context/profileContext'
 import { cartContext } from '../../context/cartContext';
 import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 
 
 export default function OrderPreview() {
 
     const {addProductToCart} = useContext(cartContext)
 
-    let order = localStorage.getItem('order');
-    order = JSON.parse(order);
+
+    const location = useLocation();
+    console.log(location); 
     
 
   return<>
     <div className="container w-75 pt-5">
         {
-            order.map((product,index)=>
+            location.state.cartItems.map((product,index)=>
                 <div key={index}>
                     <div className="row align-items-center border-bottom border-3">
                         <div className="col-sm-1">
