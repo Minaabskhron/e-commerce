@@ -13,7 +13,6 @@ export default function Categories() {
   {
     const {data} = await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
     setAllCategories(data.data);
-    console.log(data.data);
   }
   const {data,isLoading} = useQuery('allCatogries',getCategories)
 

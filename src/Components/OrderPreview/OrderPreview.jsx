@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { profileContext } from '../../context/profileContext'
 import { cartContext } from '../../context/cartContext';
+import toast from 'react-hot-toast';
 
 
 export default function OrderPreview() {
@@ -35,7 +36,11 @@ export default function OrderPreview() {
                             <div>
                                 <h6>{product.price} EGP</h6>
                                 <h6 className='text-muted'>Qty: {product.count}</h6>
-                                <button onClick={()=>{addProductToCart(product.product._id)}} className='btn mainBgColor btn-dark'>Buy Again</button>
+                                <button onClick={async ()=>{
+                                    toast.loading('Adding product to the cart',{duration:1500});
+                                    await addProductToCart(product.product._id)
+                                    toast.success('Added successfully')
+                                }} className='btn mainBgColor btn-dark'>Buy Again</button>
                             </div>
                         </div>
                     </div>
