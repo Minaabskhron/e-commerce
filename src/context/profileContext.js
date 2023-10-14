@@ -10,8 +10,12 @@ export default function ProfileContextProvider({children}) {
     
 
     useEffect(() => {
-      const {id} = jwtDecode(localStorage.getItem('token'));
-      localStorage.setItem('userId',id);
+      if (localStorage.getItem('token'))
+      {
+        const {id} = jwtDecode(localStorage.getItem('token'));
+        localStorage.setItem('userId',id);
+      }
+
     }, [])
 
 
