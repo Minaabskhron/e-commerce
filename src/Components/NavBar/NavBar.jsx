@@ -67,7 +67,7 @@ export default function NavBar() {
             <i className='me-2 fa-brands fa-youtube'></i>
             {token?<Link to={'/cart'}>
             <i className="fa-solid fa-cart-shopping position-relative">
-              {numOfCartItems==0?"":<span className="position-absolute top-0 start-100 translate-middle badge rounded-3 mainBgColor">
+              {numOfCartItems === 0 ?"":<span className="position-absolute top-0 start-100 translate-middle badge rounded-3 mainBgColor">
                   {numOfCartItems}
               </span>}
 

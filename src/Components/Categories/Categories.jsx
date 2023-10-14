@@ -14,7 +14,7 @@ export default function Categories() {
     const {data} = await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
     setAllCategories(data.data);
   }
-  const {data,isLoading} = useQuery('allCatogries',getCategories)
+  const {isLoading} = useQuery('allCatogries',getCategories)
 
   if (isLoading)
   {

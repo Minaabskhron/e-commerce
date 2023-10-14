@@ -25,11 +25,6 @@ export default function Payment() {
         
     }
 
-    async function confirmOnlinePaymentComp(valuesParam)
-    {
-        await confirmOnlinePayment(valuesParam)
-    }
-
     const formikObj = useFormik(
         {
             initialValues:{
@@ -95,7 +90,7 @@ export default function Payment() {
             </div> 
 
 
-            <button type='submit' disabled={formikObj.isValid == false || formikObj.dirty == false} className='btn btn-danger mt-3'>Confirm details</button>
+            <button type='submit' disabled={formikObj.isValid === false || formikObj.dirty === false} className='btn btn-danger mt-3'>Confirm details</button>
             
 
             

@@ -91,7 +91,7 @@ export default function CartContextProvider({children}) {
             headers:{'token':localStorage.getItem('token')}
         })
 
-        if (data.status=="success")
+        if (data.status === "success")
         {
             setNumOfCartItems(data.numOfCartItems);
             setTotalCartPrice(data.data.totalCartPrice);

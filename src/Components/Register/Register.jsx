@@ -65,7 +65,7 @@ export default function Register() {
         errors.password = "Password length must be at least 8 charaters and must contain at least one small character ,one capital ,one special character"
       }
 
-      if (values.password!=values.rePassword)
+      if (values.password!==values.rePassword)
       {
         errors.rePassword = "Passwords do not match"
       }
@@ -109,7 +109,7 @@ export default function Register() {
             <input onChange={formikObj.handleChange} onBlur={formikObj.handleBlur} value={formikObj.values.phone} id="phone"  className="form-control mb-2" type="tel" />
             {formikObj.errors.phone && formikObj.touched.phone?<div className="alert alert-danger">{formikObj.errors.phone}</div>: " "}
 
-            <button type="submit" disabled={formikObj.isValid == false || formikObj.dirty == false} className="btn btn-primary">
+            <button type="submit" disabled={formikObj.isValid === false || formikObj.dirty === false} className="btn btn-primary">
               {isLoading?<RotatingLines
               strokeColor="white"
               strokeWidth="5"

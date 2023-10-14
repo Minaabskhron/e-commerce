@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import './Products.css'
 import Loading from '../Loading/Loading';
 import { useQuery } from 'react-query';

@@ -2,8 +2,7 @@ import React, { useContext } from 'react'
 import { cartContext } from '../../context/cartContext'
 import './Cart.css'
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
-import Loading from '../Loading/Loading';
+import { Link } from 'react-router-dom';
 
 
 export default function Cart() {

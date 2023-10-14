@@ -12,8 +12,6 @@ export default function OrderPreview() {
     order = JSON.parse(order);
     
 
-    const {allOrders} = useContext(profileContext)
-
   return<>
     <div className="container w-75 pt-5">
         {

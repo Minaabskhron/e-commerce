@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext } from 'react'
 import { cartContext } from './cartContext';
-import jwtDecode from 'jwt-decode';
 
 export const paymentContext = createContext();
 

@@ -21,7 +21,7 @@ export default function Login() {
     try {
       const {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",values);
 
-      if (data.message == "success")
+      if (data.message === "success")
       {
         setSuccesMsg("Welcome back");
         localStorage.setItem('token',data.token);
@@ -88,7 +88,7 @@ export default function Login() {
             <input onChange={formikObj.handleChange} onBlur={formikObj.handleBlur} value={formikObj.values.password} id="password"  className="form-control mb-2" type="password" />
             {formikObj.errors.password && formikObj.touched.password?<div className="alert alert-danger">{formikObj.errors.password}</div>: " "}
 
-            <button type="submit" disabled={formikObj.isValid == false || formikObj.dirty == false} className="btn btn-primary">
+            <button type="submit" disabled={formikObj.isValid === false || formikObj.dirty === false} className="btn btn-primary">
               {isLoading?<RotatingLines
               strokeColor="white"
               strokeWidth="5"
