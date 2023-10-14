@@ -9,7 +9,6 @@ export default function OrderPreview() {
 
     let order = localStorage.getItem('order');
     order = JSON.parse(order);
-    console.log(order);
     
 
     const {allOrders} = useContext(profileContext)

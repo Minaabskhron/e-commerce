@@ -2,7 +2,7 @@ import { RouterProvider, createHashRouter } from 'react-router-dom';
 import './App.css';
 import Layout from './Components/Layout/Layout';
 import Brands from './Components/Brands/Brands';
-import Catogries from './Components/Categories/Catogries';
+import Categories from './Components/Categories/Categories';
 import Products from './Components/Products/Products';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
@@ -38,7 +38,7 @@ function App() {
     </ProtectedRoute>},
 
     {path:"Categories",element:<ProtectedRoute>
-    <Catogries/>
+    <Categories/>
     </ProtectedRoute>
     },
 

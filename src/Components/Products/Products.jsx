@@ -4,7 +4,6 @@ import './Products.css'
 import Loading from '../Loading/Loading';
 import { useQuery } from 'react-query';
 import HomeSlider from '../HomeSlider/HomeSlider';
-import CategorySlider from '../CategorySlider/CategorySlider';
 import { Link } from 'react-router-dom'
 import { cartContext } from '../../context/cartContext';
 import toast from 'react-hot-toast';
@@ -48,10 +47,6 @@ export default function Products() {
         <img className='w-100 productimages' src={require('../../assets/Images/blog-img-1.jpeg')} alt="" />
       </div>
 
-    </div>
-    
-    <div className='my-4'>
-      <CategorySlider/>
     </div>
     
     <div className="row gy-3 mt-2">

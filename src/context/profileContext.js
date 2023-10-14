@@ -20,7 +20,6 @@ export default function ProfileContextProvider({children}) {
       try {
         const {data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/orders/user/${localStorage.getItem('userId')}`)
         setAllOrders(data)
-        console.log(data);
         return data;
   
       } catch (error) {
