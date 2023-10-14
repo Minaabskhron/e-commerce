@@ -43,7 +43,7 @@ export default function PaymentContextProvider({children}) {
             })
             if (data.status === "success")
             {
-                window.open(data.session.url,'_self')
+                window.open(data.session.url,'_blank')
                 removeCartData()
             }
             return data;
