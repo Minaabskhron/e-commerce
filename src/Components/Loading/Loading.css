@@ -1,7 +1,7 @@
 .loadingBgColor{
     background-color: #B0D9B1;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 55px;
     bottom: 0;
     left: 0;
     right: 0;
