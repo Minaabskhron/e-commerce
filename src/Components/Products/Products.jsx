@@ -7,6 +7,7 @@ import HomeSlider from '../HomeSlider/HomeSlider';
 import { Link } from 'react-router-dom'
 import { cartContext } from '../../context/cartContext';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 
 export default function Products() {
@@ -33,6 +34,11 @@ export default function Products() {
   const {data, isLoading} = useQuery("allProducts",getProducts)
   
   return <>
+    <Helmet>
+      <title>all Products</title>
+    </Helmet>
+
+
   {isLoading? <Loading/>
   :<div className="container py-5">
 
