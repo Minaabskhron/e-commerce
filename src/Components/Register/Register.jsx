@@ -24,6 +24,8 @@ export default function Register() {
       setTimeout(() => {
         navigate("/login");
       }, 1000);
+
+      return data;
     } catch (error) {
       setErrMsg(error.response.data.message);
     }

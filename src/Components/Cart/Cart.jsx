@@ -125,7 +125,7 @@ export default function Cart() {
                 className="btn btn-outline-primary"
               >
                 {" "}
-                {product.count == 1 ? (
+                {product.count === 1 ? (
                   <i className="fa-solid fa-trash-can"></i>
                 ) : (
                   "-"

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { profileContext } from "../../context/profileContext";
 import { cartContext } from "../../context/cartContext";
 import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";

@@ -14,7 +14,7 @@ export default function Brands() {
     );
     setAllBrands(data.data);
   }
-  const { data, isLoading } = useQuery("allCatogries", getCategories);
+  const { isLoading } = useQuery("allCatogries", getCategories);
 
   if (isLoading) {
     return <Loading />;
