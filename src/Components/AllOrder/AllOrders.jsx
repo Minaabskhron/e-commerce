@@ -23,6 +23,8 @@ export default function AllOrders() {
       </Helmet>
       <div className="container p-5">
         <h5>Order List</h5>
+
+        {AllOrders.length !== 0 ?AllOrders.map((order, index) => (
         <table className="table table-striped text-center mt-4">
           <thead>
             <tr>
@@ -35,7 +37,6 @@ export default function AllOrders() {
           </thead>
 
           <tbody>
-            {AllOrders.map((order, index) => (
               <tr key={index}>
                 <td>{order.createdAt.split("T").slice(0, 1)}</td>
                 <td>{order.cartItems.length}</td>
@@ -52,9 +53,13 @@ export default function AllOrders() {
                   </button>
                 </td>
               </tr>
-            ))}
+            
           </tbody>
         </table>
+        )):<dov>
+          <p>There is no orders yet</p>
+        </dov>
+        }
       </div>
     </>
   );
