@@ -2,7 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { authContext } from "../../context/authentication";
 import { Helmet } from "react-helmet";
 
@@ -22,11 +22,14 @@ export default function NewPassword() {
         "https://ecommerce.routemisr.com/api/v1/auth/resetPassword",
         values
       );
-      console.log(data);
+      setSuccesMsg("Password changed successfully");
       localStorage.setItem("token", data.token);
       setToken(data.token);
       localStorage.removeItem("email");
-      navigate("/products");
+      
+      setTimeout(() => {
+        navigate("/products");
+      }, 1000);
     } catch (error) {
       setErrMsg(error.response.data.message);
       console.log(error);
@@ -128,7 +131,7 @@ export default function NewPassword() {
                   visible={true}
                 />
               ) : (
-                "Login"
+                "change Password"
               )}
             </button>
           </form>
