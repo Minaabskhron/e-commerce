@@ -2,37 +2,34 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authContext } from "../../context/authentication";
 import { Helmet } from "react-helmet";
 
-export default function Login() {
+export default function NewPassword() {
   const { setToken } = useContext(authContext);
 
   const [errMsg, setErrMsg] = useState(null);
   const [succesMsg, setSuccesMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const emailValue = localStorage.getItem("email");
   const navigate = useNavigate();
 
   async function loginToAccount(values) {
     setIsLoading(true);
     try {
-      const { data } = await axios.post(
-        "https://ecommerce.routemisr.com/api/v1/auth/signin",
+      const { data } = await axios.put(
+        "https://ecommerce.routemisr.com/api/v1/auth/resetPassword",
         values
       );
-
-      if (data.message === "success") {
-        setSuccesMsg("Welcome back");
-        localStorage.setItem("token", data.token);
-        setToken(data.token);
-        setTimeout(() => {
-          navigate("/products");
-        }, 1000);
-      }
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      localStorage.removeItem("email");
+      navigate("/products");
     } catch (error) {
       setErrMsg(error.response.data.message);
+      console.log(error);
     }
 
     setIsLoading(false);
@@ -40,24 +37,20 @@ export default function Login() {
 
   const formikObj = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: emailValue,
+      newPassword: "",
     },
     onSubmit: loginToAccount,
 
     validate: function (values) {
       setErrMsg(null);
       const errors = {};
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
       const passwordRegex =
         /^(?=.*[A-Z])(?=.*[a-z)(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,32}$/;
 
-      if (!emailRegex.test(values.email)) {
-        errors.email = "Invalid Email";
-      }
-
-      if (!passwordRegex.test(values.password)) {
-        errors.password =
+      if (!passwordRegex.test(values.newPassword)) {
+        errors.newPassword =
           "Password length must be at least 8 charaters and must contain at least one small character ,one capital ,one special character";
       }
 
@@ -65,9 +58,10 @@ export default function Login() {
     },
   });
 
-  return  <>
+  return (
+    <>
       <Helmet>
-        <title>login</title>
+        <title>Change password</title>
       </Helmet>
 
       <section className="w-75 m-auto">
@@ -79,16 +73,16 @@ export default function Login() {
             ""
           )}
 
-          <h4>Login:</h4>
+          <h4>Change your password:</h4>
 
           <form onSubmit={formikObj.handleSubmit}>
             <label htmlFor="email" className="mb-2">
               email:
             </label>
             <input
-              onChange={formikObj.handleChange}
+              onChange={emailValue}
               onBlur={formikObj.handleBlur}
-              value={formikObj.values.email}
+              value={emailValue}
               id="email"
               className="form-control mb-2"
               type="email"
@@ -99,20 +93,20 @@ export default function Login() {
               " "
             )}
 
-            <label htmlFor="password" className="mb-2">
-              password:
+            <label htmlFor="newPassword" className="mb-2">
+              New password:
             </label>
             <input
               onChange={formikObj.handleChange}
               onBlur={formikObj.handleBlur}
-              value={formikObj.values.password}
-              id="password"
+              value={formikObj.values.newPassword}
+              id="newPassword"
               className="form-control mb-2"
               type="password"
             />
-            {formikObj.errors.password && formikObj.touched.password ? (
+            {formikObj.errors.newPassword && formikObj.touched.newPassword ? (
               <div className="alert alert-danger">
-                {formikObj.errors.password}
+                {formikObj.errors.newPassword}
               </div>
             ) : (
               " "
@@ -138,10 +132,8 @@ export default function Login() {
               )}
             </button>
           </form>
-          <div>
-            <p className="pt-3">if you forgot your password <Link to={'/forgetPassword'}>Click here</Link></p>
-          </div>
         </div>
       </section>
-    </>;
+    </>
+  );
 }
